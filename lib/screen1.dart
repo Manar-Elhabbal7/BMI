@@ -11,21 +11,28 @@ class Screen1 extends StatefulWidget {
 
 class _Screen1State extends State<Screen1> {
   Color selected = Colors.green;
-  String gender ='Male';
+  String gender = 'Male';
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+        padding: EdgeInsets.symmetric(
+          horizontal: screenHeight * 0.03,
+          vertical: screenHeight * 0.05,
+        ),
         child: Column(
           children: [
+            const SizedBox(height:20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'BMI ',
                   style: GoogleFonts.roboto(
-                    fontSize: 28,
+                    fontSize: screenHeight * 0.035,
                     fontWeight: FontWeight.bold,
                     color: Colors.orangeAccent,
                   ),
@@ -33,53 +40,55 @@ class _Screen1State extends State<Screen1> {
                 Text(
                   'Calculator',
                   style: GoogleFonts.roboto(
-                    fontSize: 28,
+                    fontSize: screenHeight * 0.035,
                     fontWeight: FontWeight.bold,
                     color: Colors.lightGreen,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 45),
+            SizedBox(height: screenHeight * 0.05),
             Text(
               'Please choose your gender',
               style: GoogleFonts.roboto(
                 color: Colors.black87,
-                fontSize: 16,
+                fontSize: screenHeight * 0.02,
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: screenHeight * 0.03),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GenderCard(
                   imagePath: 'assets/male.png',
+                  height: screenHeight * 0.25,
                   onTap: () {
                     setState(() {
                       selected = const Color(0xFF22689E);
+                      gender = "Male";
+                      debugPrint('Male selected');
                     });
-                    gender = "Male";
-                    debugPrint('Male selected');
                   },
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.025),
                 GenderCard(
                   imagePath: 'assets/female.png',
+                  height: screenHeight * 0.25,
                   onTap: () {
                     setState(() {
                       selected = const Color(0xFFFF6757);
+                      gender = "Female";
+                      debugPrint('Female selected');
                     });
-                    gender = "Female";
-                    debugPrint('Female selected');
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: screenHeight * 0.04),
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: screenHeight * 0.065,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: selected,
@@ -88,19 +97,18 @@ class _Screen1State extends State<Screen1> {
                   ),
                 ),
                 onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Screen2(gender: gender),
-                      ),
-                    );
-                  },
-
-                child: const Text(
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Screen2(gender: gender),
+                    ),
+                  );
+                },
+                child: Text(
                   'Continue',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: screenHeight * 0.022,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -116,8 +124,14 @@ class _Screen1State extends State<Screen1> {
 class GenderCard extends StatelessWidget {
   final String imagePath;
   final VoidCallback onTap;
+  final double height;
 
-  const GenderCard({super.key, required this.imagePath, required this.onTap});
+  const GenderCard({
+    super.key,
+    required this.imagePath,
+    required this.onTap,
+    required this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +140,7 @@ class GenderCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: 150,
+        height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
