@@ -186,7 +186,7 @@ class _Screen2State extends State<Screen2> {
                       ),
                       onPressed: () {
                          showDialog(context: context,
-                          barrierColor: Colors.black.withOpacity(0.7),
+                          barrierColor: Colors.black.withOpacity(0.3),
                           builder: (BuildContext context) {
                             return CustomDialog(
                               height: height,

@@ -1,4 +1,4 @@
-import 'dart:ui'; // ✅ مهم جداً!
+import 'dart:ui'; 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,13 +16,13 @@ class CustomDialog extends StatelessWidget {
     required this.gender,
   }) : super(key: key);
 
-  // حساب الـ BMI
+  
   double calculateBMI() {
     double heightInMeters = height / 100;
     return weight / (heightInMeters * heightInMeters);
   }
 
-  // تحديد الحالة
+  
   String getBMICategory() {
     double bmi = calculateBMI();
     if (bmi < 18.5) return 'Underweight';
@@ -39,7 +39,7 @@ class CustomDialog extends StatelessWidget {
     return Colors.red;
   }
 
-  // حساب النطاق الطبيعي للوزن
+  
   String getNormalWeightRange() {
     double heightInMeters = height / 100;
     double minWeight = 18.5 * (heightInMeters * heightInMeters);
@@ -54,8 +54,8 @@ class CustomDialog extends StatelessWidget {
     Color categoryColor = getCategoryColor();
     String normalRange = getNormalWeightRange();
 
-    return BackdropFilter( // ✅ إضافة BackdropFilter
-      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // ✅ التغبيش
+    return BackdropFilter( 
+      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), 
       child: Dialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -71,7 +71,7 @@ class CustomDialog extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // العنوان
+                
                 Text(
                   'Your BMI:',
                   style: GoogleFonts.roboto(
@@ -83,7 +83,7 @@ class CustomDialog extends StatelessWidget {
 
                 SizedBox(height: 10),
 
-                // نتيجة الـ BMI
+                
                 Text(
                   bmi.toStringAsFixed(1),
                   style: GoogleFonts.roboto(
@@ -93,7 +93,7 @@ class CustomDialog extends StatelessWidget {
                   ),
                 ),
 
-                // الحالة
+                
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   decoration: BoxDecoration(
@@ -112,12 +112,12 @@ class CustomDialog extends StatelessWidget {
 
                 SizedBox(height: 16),
 
-                // الـ BMI Scale (مثل الصورة)
+                
                 _buildBMIScale(bmi),
 
                 SizedBox(height: 16),
 
-                // البيانات في صف واحد
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -130,7 +130,7 @@ class CustomDialog extends StatelessWidget {
 
                 SizedBox(height: 16),
 
-                // النطاق الطبيعي
+                
                 Container(
                   padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -162,7 +162,7 @@ class CustomDialog extends StatelessWidget {
 
                 SizedBox(height: 20),
 
-                // زر Close
+                
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity, 50),
