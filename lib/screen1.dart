@@ -18,103 +18,107 @@ class _Screen1State extends State<Screen1> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenHeight * 0.03,
-          vertical: screenHeight * 0.05,
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height:20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'BMI ',
-                  style: GoogleFonts.roboto(
-                    fontSize: screenHeight * 0.035,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orangeAccent,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.03),
+          child: Column(
+            children: [
+              // Expanded makes the content scrollable if too tall
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'BMI ',
+                            style: GoogleFonts.roboto(
+                              fontSize: screenHeight * 0.035,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orangeAccent,
+                            ),
+                          ),
+                          Text(
+                            'Calculator',
+                            style: GoogleFonts.roboto(
+                              fontSize: screenHeight * 0.035,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lightGreen,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.05),
+                      Text(
+                        'Please choose your gender',
+                        style: GoogleFonts.roboto(
+                          color: Colors.black87,
+                          fontSize: screenHeight * 0.02,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      GenderCard(
+                        imagePath: 'assets/male.png',
+                        height: screenHeight * 0.25,
+                        onTap: () {
+                          setState(() {
+                            selected = const Color(0xFF22689E);
+                            gender = "Male";
+                          });
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.025),
+                      GenderCard(
+                        imagePath: 'assets/female.png',
+                        height: screenHeight * 0.25,
+                        onTap: () {
+                          setState(() {
+                            selected = const Color(0xFFFF6757);
+                            gender = "Female";
+                          });
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.04),
+                    ],
                   ),
                 ),
-                Text(
-                  'Calculator',
-                  style: GoogleFonts.roboto(
-                    fontSize: screenHeight * 0.035,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.lightGreen,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: screenHeight * 0.05),
-            Text(
-              'Please choose your gender',
-              style: GoogleFonts.roboto(
-                color: Colors.black87,
-                fontSize: screenHeight * 0.02,
-                fontWeight: FontWeight.w700,
               ),
-            ),
-            SizedBox(height: screenHeight * 0.03),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GenderCard(
-                  imagePath: 'assets/male.png',
-                  height: screenHeight * 0.25,
-                  onTap: () {
-                    setState(() {
-                      selected = const Color(0xFF22689E);
-                      gender = "Male";
-                      debugPrint('Male selected');
-                    });
-                  },
-                ),
-                SizedBox(height: screenHeight * 0.025),
-                GenderCard(
-                  imagePath: 'assets/female.png',
-                  height: screenHeight * 0.25,
-                  onTap: () {
-                    setState(() {
-                      selected = const Color(0xFFFF6757);
-                      gender = "Female";
-                      debugPrint('Female selected');
-                    });
-                  },
-                ),
-              ],
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            SizedBox(
-              width: double.infinity,
-              height: screenHeight * 0.065,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: selected,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Screen2(gender: gender),
+
+              // Button pinned at the bottom
+              SizedBox(
+                width: double.infinity,
+                height: screenHeight * 0.065,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selected,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  );
-                },
-                child: Text(
-                  'Continue',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenHeight * 0.022,
-                    fontWeight: FontWeight.w500,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Screen2(gender: gender),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenHeight * 0.022,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: screenHeight * 0.03), // bottom padding
+            ],
+          ),
         ),
       ),
     );

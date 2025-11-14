@@ -22,190 +22,192 @@ class _Screen2State extends State<Screen2> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.04,
-          vertical: screenHeight * 0.05,
-        ),
-        child: SingleChildScrollView(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.04,
+            vertical: screenHeight * 0.02,
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height :20),
-              Row(
-                
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    color: Colors.lightGreen,
-                    icon: const Icon(Icons.arrow_back_ios),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Row(
                         children: [
-                          Text(
-                            'BMI ',
-                            style: GoogleFonts.roboto(
-                              fontSize: screenHeight * 0.035,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.orangeAccent,
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            color: Colors.lightGreen,
+                            icon: const Icon(Icons.arrow_back_ios),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'BMI ',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: screenHeight * 0.035,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.orangeAccent,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Calculator',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: screenHeight * 0.035,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.lightGreen,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
+                          SizedBox(width: screenWidth * 0.12),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      Text(
+                        'Please modify the values',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                          color: Colors.black87,
+                          fontSize: screenHeight * 0.025,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildStepperCard(
+                            label: "Weight",
+                            unit: 'kg',
+                            value: weight,
+                            width: screenWidth * 0.42,
+                            height: screenHeight * 0.28,
+                            onIncrement: () {
+                              setState(() {
+                                if (weight < 300) weight++;
+                              });
+                            },
+                            onDecrement: () {
+                              setState(() {
+                                if (weight > 1) weight--;
+                              });
+                            },
+                          ),
+                          SizedBox(width: screenWidth * 0.03),
+                          _buildStepperCard(
+                            label: "Age",
+                            unit: 'years',
+                            value: age,
+                            width: screenWidth * 0.42,
+                            height: screenHeight * 0.28,
+                            onIncrement: () {
+                              setState(() {
+                                if (age < 100) age++;
+                              });
+                            },
+                            onDecrement: () {
+                              setState(() {
+                                if (age > 1) age--;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      Text(
+                        'Height',
+                        style: GoogleFonts.roboto(
+                          color: Colors.grey[600],
+                          fontSize: screenHeight * 0.018,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.015),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
                           Text(
-                            'Calculator',
+                            height.toString(),
                             style: GoogleFonts.roboto(
-                              fontSize: screenHeight * 0.035,
+                              fontSize: screenHeight * 0.07,
                               fontWeight: FontWeight.bold,
-                              color: Colors.lightGreen,
+                              color: const Color(0xFFCE922A),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsets.only(bottom: screenHeight * 0.01),
+                            child: Text(
+                              ' cm',
+                              style: GoogleFonts.roboto(
+                                fontSize: screenHeight * 0.022,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  SizedBox(width: screenWidth * 0.12),
-                ],
-              ),
-
-              SizedBox(height: screenHeight * 0.04),
-
-              Text(
-                'Please modify the values',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.roboto(
-                  color: Colors.black87,
-                  fontSize: screenHeight * 0.025,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-
-              SizedBox(height: screenHeight * 0.02),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildStepperCard(
-                    label: "Weight",
-                    unit: 'kg',
-                    value: weight,
-                    width: screenWidth * 0.42,
-                    height: screenHeight * 0.28,
-                    onIncrement: () {
-                      setState(() {
-                        if (weight < 300) weight++;
-                      });
-                    },
-                    onDecrement: () {
-                      setState(() {
-                        if (weight > 1) weight--;
-                      });
-                    },
-                  ),
-                  SizedBox(width: screenWidth * 0.03),
-                  _buildStepperCard(
-                    label: "Age",
-                    unit: 'years',
-                    value: age,
-                    width: screenWidth * 0.42,
-                    height: screenHeight * 0.28,
-                    onIncrement: () {
-                      setState(() {
-                        if (age < 100) age++;
-                      });
-                    },
-                    onDecrement: () {
-                      setState(() {
-                        if (age > 1) age--;
-                      });
-                    },
-                  ),
-                ],
-              ),
-
-              SizedBox(height: screenHeight * 0.03),
-
-              Text(
-                'Height',
-                style: GoogleFonts.roboto(
-                  color: Colors.grey[600],
-                  fontSize: screenHeight * 0.018,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.015),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    height.toString(),
-                    style: GoogleFonts.roboto(
-                      fontSize: screenHeight * 0.07,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFFCE922A),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: screenHeight * 0.01),
-                    child: Text(
-                      ' cm',
-                      style: GoogleFonts.roboto(
-                        fontSize: screenHeight * 0.022,
-                        color: Colors.grey[600],
+                      Slider(
+                        value: height.toDouble(),
+                        min: 50,
+                        max: 200,
+                        activeColor: Colors.lightGreen,
+                        inactiveColor: Colors.grey[300],
+                        onChanged: (value) {
+                          setState(() {
+                            height = value.toInt();
+                          });
+                        },
                       ),
+                      SizedBox(height: screenHeight * 0.025),
+                    ],
+                  ),
+                ),
+              ),
+              // Calculate button pinned at bottom
+              SizedBox(
+                width: double.infinity,
+                height: screenHeight * 0.07,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                ],
-              ),
-
-              Slider(
-                value: height.toDouble(),
-                min: 50,
-                max: 200,
-                activeColor: Colors.lightGreen,
-                inactiveColor: Colors.grey[300],
-                onChanged: (value) {
-                  setState(() {
-                    height = value.toInt();
-                  });
-                },
-              ),
-
-              SizedBox(height: screenHeight * 0.025),
-
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, screenHeight * 0.07),
-                  backgroundColor: Colors.lightGreen,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    barrierColor: Colors.black.withOpacity(0.3),
-                    builder: (BuildContext context) {
-                      return CustomDialog(
-                        height: height,
-                        age: age,
-                        weight: weight,
-                        gender: widget.gender,
-                      );
-                    },
-                  );
-                },
-                child: Text(
-                  'Calculate',
-                  style: GoogleFonts.roboto(
-                    fontSize: screenHeight * 0.025,
-                    color: Colors.white,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.black.withOpacity(0.3),
+                      builder: (BuildContext context) {
+                        return CustomDialog(
+                          height: height,
+                          age: age,
+                          weight: weight,
+                          gender: widget.gender,
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
+                    'Calculate',
+                    style: GoogleFonts.roboto(
+                      fontSize: screenHeight * 0.025,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
+              SizedBox(height: screenHeight * 0.02),
             ],
           ),
         ),
@@ -227,7 +229,7 @@ Widget _buildStepperCard({
     width: width,
     height: height,
     padding: EdgeInsets.symmetric(
-      vertical: height * 0.1 * 0.2, 
+      vertical: height * 0.08,
       horizontal: width * 0.05,
     ),
     decoration: BoxDecoration(
@@ -296,8 +298,7 @@ Widget _buildStepperCard({
                   color: const Color(0xFFCE922A),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child:
-                    Icon(Icons.add, color: Colors.white, size: height * 0.12),
+                child: Icon(Icons.add, color: Colors.white, size: height * 0.12),
               ),
             ),
           ],
