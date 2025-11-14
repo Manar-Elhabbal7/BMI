@@ -1,3 +1,4 @@
+import 'package:bmi/result.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,7 +13,7 @@ class Screen2 extends StatefulWidget {
 
 class _Screen2State extends State<Screen2> {
   int weight = 45;
-  int height = 160; 
+  int height = 160;
   int age = 20;
 
   @override
@@ -163,8 +164,8 @@ class _Screen2State extends State<Screen2> {
 
                     Slider(
                       value: height.toDouble(),
-                      min: 100,
-                      max: 250,
+                      min: 50,
+                      max: 200,
                       activeColor: Colors.lightGreen,
                       inactiveColor: Colors.grey[300],
                       onChanged: (value) {
@@ -184,7 +185,16 @@ class _Screen2State extends State<Screen2> {
                         ),
                       ),
                       onPressed: () {
-
+                         showDialog(context: context,
+                          barrierColor: Colors.black.withOpacity(0.7),
+                          builder: (BuildContext context) {
+                            return CustomDialog(
+                              height: height,
+                               age: age,
+                               weight: weight,
+                              gender:widget.gender ); 
+                          },            
+                        );
                       },
                       child: Text(
                         'Calculate',
